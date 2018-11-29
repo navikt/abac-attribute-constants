@@ -108,8 +108,8 @@ public final class StandardAttributter {
 	/**
 	 * This identifier indicates the current time at the context handler.  
 	 * In practice it is the time at which the request context was created.  
-	 * For this reason, if these identifiers appear in multiple places within a <Policy> 
-	 * or <PolicySet>, then the same value SHALL be assigned to 
+	 * For this reason, if these identifiers appear in multiple places within a &lt;Policy&gt;
+	 * or &lt;PolicySet&gt;, then the same value SHALL be assigned to
 	 * each occurrence in the evaluation procedure, regardless of how much time 
 	 * elapses between the processing of the occurrences.
 	 * 
