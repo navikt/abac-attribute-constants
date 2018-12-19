@@ -2,7 +2,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>no.nav.abac.policies</groupId>
 	<artifactId>abac-attribute-constants</artifactId>
-	<version>3.3.13</version>
+	<version>4.0.0</version>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>abac-common-attributes-alfa</module>
+		<module>abac-veilarb-policies-alfa</module>
+	</modules>
 
 	<name>abac-attribute-constants</name>
 	<description>Java constants used for ABAC authorization</description>
