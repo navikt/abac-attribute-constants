@@ -1,1 +1,16 @@
 language: java
+script:
+- mvn package
+- |
+  set -e
+  if [ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "master" ]; then
+    openssl aes-256-cbc -K $encrypted_e500f078c631_key -iv $encrypted_e500f078c631_iv -in travis/codesigning.asc.enc -out travis/codesigning.asc -d
+    gpg --fast-import travis/codesigning.asc
+    mvn --settings travis/settings.xml deploy -Prelease -DskipTests=true
+  fi
+env:
+  global:
+  - OSSRH_JIRA_USERNAME=navikt
+  - secure: 05UAhmvOr/7k7ANaT2XmXKhYzt61seWMtSLsH0n6NGXtnPj/1KQRsgh2ofHccblRihWkh9+qo986R55U8jdcUpJ50CpHBy6m9eWJGt6BkjRr7kgy0ArwK2wTdaF0g2r8ZZrxEjZMXdpouWmFiKuyL74vmfkOiPNVoc3EhUUnYnKX3OALM/JqBS5pjXD43LwXKgmBbSam4wRo1C81JeTFR+yE4+xgHXVW7uYsndGPIrzc+SUjfPKBybZIZIq2po7nVbeXSITtjAxTVLtIbPaem9dk13g04xGw3OCnl/aYij/H6oqo5FdFlu5nPy9Fae9HReL7Wiu9ZqAB6wrZGBl3S6kKIrV5GTuKdegg9yS2533hEWj1E7pBqm70hEh0jJie18beBpHVtNYphVvj/Di8RabPCYwBiJwzhE15nK2i+a3S6yxXmc4NL5EFs+cxhSLD8aT0fw2V5poupa+TrIpBy4khzAN8+v5dWiz1HwU5DTx7BHkD5Lnf/vhW2EN8cP72HSnz1HNQGzJ/gxVs51SbkE5V46V05cVqkAs9VrewbJhW4CLayykapRM8gm5VjMrj0fJiFDB/AbzHAEF/Gyr0LvYFUXKJCqzYeiRAAkLo7qmmqyaNEP41AVG9qVdWUGgDA42VWjXOF8XUjwsgEv60pr1d4cUN9qpzikWNGgts730=
+  - GPG_KEY_NAME=navikt
+  - secure: qYKFE4Mu/nBrFZ0CalVSHzh8SmQ+6eBTI0zR55tLLxjGP4NWC4RHNzy6tXEtjxr/5Vz9q3Kj+f0AcqJtoTkTNcJildRgXZPOzfHsO/EqQf4o7yuMBMRLBR/b0qd18EA4ypU+ua1MzpxlIwyIiayUg8BwV75SOZTTvUOOVs2fmD7+n5m5SpTaDlsq1v40BV6bQd3oyKztw9RxpBXes1xJTfatbJ1orSbK3l/iieOYH5DNnZjiNudujAuYouBRubixstegOi2cjvcPxnCeEn9zfutT3dvGeWEg58VJIBtcn2hU0syT+xpfAe3xcUk+dylchwIo7nA8YKPs1hLYmcmzicQCRpe5XHiIc14IEEEzGyv8ITzqmhi88WAIkL9+k0ta2C0HO3qW5AanKnEjD3XCRTpkehqNhQRPwCqXZiMhYNdEfpqnd+K8DRKGiz/BwuEh4wUomIfpByO6924nNKUzrnp/iRHj3xcPcDB1fDvn3wCI79jnA0O+6Ll47oveP9UghDImpvTVR1FWBVZvfIh/LtMplVVBS6zw+v9Gp5lUMQIYWX93RnBm3Fmyf40NW71gT/inOGwQjBokzPi8N4I1VePVpJwIX0E81jAF13iOampTCkflvZDfRcevfO4wqnn7YsR7hlDJRcoQyi9t0nB6RGatC1IDDczqgPlhb6ujISg=
